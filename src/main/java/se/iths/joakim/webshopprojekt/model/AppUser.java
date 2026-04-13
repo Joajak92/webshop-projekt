@@ -19,8 +19,8 @@ public class AppUser {
     @NotBlank
     @Column(nullable = false)
     private String password;
-
     private boolean consent;
+    private String role;
 
     public void setId(Long id) {
         this.id = id;
@@ -30,4 +30,35 @@ public class AppUser {
         return id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isConsent() {
+        return consent;
+    }
+
+    public void setConsent(boolean consent) {
+        this.consent = consent;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
