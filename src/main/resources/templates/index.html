@@ -3,54 +3,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Webshop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background-color: #222;
-            padding: 16px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-            margin-left: 20px;
-        }
-
-        header a:hover { opacity: 0.75; }
-
-        header .logo {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-left: 0;
-        }
-
-        header form button {
-            background: none;
-            border: 1px solid white;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            margin-left: 20px;
-        }
-
-        header form button:hover { opacity: 0.75; }
-
         .main-content {
             flex: 1;
             display: flex;
@@ -58,7 +12,6 @@
             align-items: center;
             padding: 40px 20px;
         }
-
         .container {
             text-align: center;
             background-color: white;
@@ -66,51 +19,13 @@
             border-radius: 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
         }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: #222;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 32px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-        }
-
-        a.btn {
-            text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
+        h1 { font-size: 2rem; margin-bottom: 8px; color: #222; }
+        p { color: #666; margin-bottom: 32px; }
+        .buttons { display: flex; gap: 16px; justify-content: center; }
+        a.btn { text-decoration: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; }
         .login { background-color: #222; color: white; }
-
-        .register {
-            background-color: white;
-            color: #222;
-            border: 2px solid #222;
-        }
-
+        .register { background-color: white; color: #222; border: 2px solid #222; }
         a.btn:hover { opacity: 0.85; }
-
-        footer {
-            background-color: #222;
-            color: #aaa;
-            text-align: center;
-            padding: 16px;
-            font-size: 0.85rem;
-        }
-
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
-        footer a:hover { color: white; }
     </style>
 </head>
 <body>
@@ -134,6 +49,23 @@
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>
+
+<div id="cookie-banner" style="display:none;">
+    <p>Vi använder cookies för att webbplatsen ska fungera. <a href="/cookie-policy">Läs mer</a></p>
+    <button onclick="acceptCookies()">Godkänn</button>
+</div>
+
+<script>
+    function acceptCookies() {
+        document.cookie = "cookie_consent=true; path=/; max-age=" + (365*24*60*60);
+        document.getElementById("cookie-banner").style.display = "none";
+    }
+
+    if (!document.cookie.split("; ").find(row => row.startsWith("cookie_consent="))) {
+        document.getElementById("cookie-banner").style.display = "flex";
+    }
+</script>
+
 
 </body>
 </html>

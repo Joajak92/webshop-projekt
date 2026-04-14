@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
 
 <header th:fragment="header">
@@ -25,6 +28,24 @@
         <a href="/cookie-policy">Cookie-policy</a>
     </p>
 </footer>
+
+<div th:fragment="cookieBanner">
+    <div id="cookie-banner" style="display:none;">
+        <p>Vi använder cookies för att webbplatsen ska fungera. <a href="/cookie-policy">Läs mer</a></p>
+        <button onclick="acceptCookies()">Godkänn</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            document.cookie = "cookie_consent=true; path=/; max-age=" + (365*24*60*60);
+            document.getElementById("cookie-banner").style.display = "none";
+        }
+
+        if (!document.cookie.split("; ").find(row => row.startsWith("cookie_consent="))) {
+            document.getElementById("cookie-banner").style.display = "flex";
+        }
+    </script>
+</div>
 
 </body>
 </html>
