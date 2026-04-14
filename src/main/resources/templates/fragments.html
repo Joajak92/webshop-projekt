@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
 <header th:fragment="header">
     <nav>
         <a href="/">Hem</a>
-        <a href="/products">Produkter</a>
-        <a href="/cart">Kundvagn</a>
-        <a href="/profile">Min profil</a>
-        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin">Admin</a>
-        <form th:action="@{/logout}" method="post" style="display:inline">
-            <button type="submit">Logga ut</button>
-        </form>
+
+        <div sec:authorize="isAuthenticated()">
+            <a href="/products">Produkter</a>
+            <a href="/cart">Kundvagn</a>
+            <a href="/profile">Min profil</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/admin">Admin</a>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit">Logga ut</button>
+            </form>
+        </div>
     </nav>
 </header>
 
