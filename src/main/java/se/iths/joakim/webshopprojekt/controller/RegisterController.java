@@ -13,6 +13,7 @@ import se.iths.joakim.webshopprojekt.service.AppUserService;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
+
     private final AppUserService appUserService;
 
     public RegisterController(AppUserService appUserService) {
@@ -38,7 +39,6 @@ public class RegisterController {
             return "register";
         }
 
-        appUserService.register(appUser);
         model.addAttribute("username", appUser.getUsername());
         return "register-success";
     }
