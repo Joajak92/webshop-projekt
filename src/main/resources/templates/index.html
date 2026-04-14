@@ -1,21 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Webshop</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #222;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-left: 20px;
+        }
+
+        header a:hover { opacity: 0.75; }
+
+        header .logo {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-left: 0;
+        }
+
+        header form button {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-left: 20px;
+        }
+
+        header form button:hover { opacity: 0.75; }
+
+        .main-content {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 40px 20px;
         }
 
         .container {
@@ -43,17 +84,14 @@
             justify-content: center;
         }
 
-        a {
+        a.btn {
             text-decoration: none;
             padding: 12px 28px;
             border-radius: 8px;
             font-size: 1rem;
         }
 
-        .login {
-            background-color: #222;
-            color: white;
-        }
+        .login { background-color: #222; color: white; }
 
         .register {
             background-color: white;
@@ -61,19 +99,41 @@
             border: 2px solid #222;
         }
 
-        a:hover {
-            opacity: 0.85;
+        a.btn:hover { opacity: 0.85; }
+
+        footer {
+            background-color: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 16px;
+            font-size: 0.85rem;
         }
+
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        footer a:hover { color: white; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Välkommen till webshoppen</h1>
-    <p>Logga in eller skapa ett konto för att börja handla</p>
-    <div class="buttons">
-        <a href="/login" class="login">Logga in</a>
-        <a href="/register" class="register">Registrera dig</a>
+
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Välkommen till webshoppen</h1>
+        <p>Logga in eller skapa ett konto för att börja handla</p>
+
+        <div class="buttons" sec:authorize="isAnonymous()">
+            <a href="/login" class="btn login">Logga in</a>
+            <a href="/register" class="btn register">Registrera dig</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <a href="/products" class="btn login">Gå till produkter</a>
+        </div>
     </div>
 </div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
 </body>
 </html>
