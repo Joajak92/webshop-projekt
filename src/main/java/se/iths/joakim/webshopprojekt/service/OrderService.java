@@ -30,6 +30,9 @@ public class OrderService {
         }
 
         order.setTotalPrice(cart.getTotalPrice());
-        return orderRepository.save(order);
+        Order saved = orderRepository.save(order);
+        cart.clear();
+        return saved;
+
     }
 }
