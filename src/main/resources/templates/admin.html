@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 560px;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 24px; color: #222; }
+        label { display: block; margin-bottom: 6px; color: #444; font-size: 0.9rem; }
+        input[type="text"],
+        input[type="number"],
+        input[type="url"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover { opacity: 0.85; }
+        .error { color: red; font-size: 0.85rem; margin-bottom: 8px; }
+        .success { color: green; font-size: 0.85rem; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Skapa ny produkt</h1>
+
+        <p class="success" th:if="${success}" th:text="${success}"></p>
+
+        <form th:action="@{/admin/products}" th:object="${product}" method="post">
+            <label>Namn</label>
+            <input type="text" th:field="*{name}" placeholder="Produktnamn"/>
+            <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label>Pris</label>
+            <input type="number" th:field="*{price}" placeholder="0.00" step="0.01"/>
+            <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+
+            <label>Kategori</label>
+            <input type="text" th:field="*{category}" placeholder="T.ex. Elektronik"/>
+            <p class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{price}"></p>
+
+            <label>Bild-URL</label>
+            <input type="url" th:field="*{imageUrl}" placeholder="https://..."/>
+            <p class="error" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></p>
+
+            <button type="submit">Skapa produkt</button>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
