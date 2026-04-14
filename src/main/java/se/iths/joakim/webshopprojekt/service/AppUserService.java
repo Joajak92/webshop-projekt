@@ -21,7 +21,7 @@ public class AppUserService {
             throw new IllegalArgumentException("E-postadressen används redan.");
         }
         if (!appUser.isConsent()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Du måste godkänna integritetspolicyn.");
         }
 
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
