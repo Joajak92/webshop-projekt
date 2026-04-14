@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header">
+    <nav>
+        <a href="/">Hem</a>
+        <a href="/products">Produkter</a>
+        <a href="/cart">Kundvagn</a>
+        <a href="/profile">Min profil</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin">Admin</a>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit">Logga ut</button>
+        </form>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <p>
+        <a href="/privacy-policy">Integritetspolicy</a> |
+        <a href="/cookie-policy">Cookie-policy</a>
+    </p>
+</footer>
+
+</body>
+</html>
