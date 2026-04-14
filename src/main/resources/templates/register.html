@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrera dig</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 60px 80px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 480px;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 24px; color: #222; }
+        label { display: block; margin-bottom: 6px; color: #444; font-size: 0.9rem; }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .checkbox-row input { width: auto; }
+        .checkbox-row a { color: #222; }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover { opacity: 0.85; }
+        .error { color: red; font-size: 0.85rem; margin-bottom: 8px; }
+        .login-link { text-align: center; margin-top: 16px; color: #666; font-size: 0.9rem; }
+        .login-link a { color: #222; }
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Skapa konto</h1>
+
+        <p class="error" th:if="${registerError}" th:text="${registerError}"></p>
+
+        <form th:action="@{/register}" th:object="${appUser}" method="post">
+            <label>Email</label>
+            <input type="email" th:field="*{username}" placeholder="din@email.se"/>
+            <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+
+            <label>Lösenord</label>
+            <input type="password" th:field="*{password}" placeholder="Lösenord"/>
+            <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
+            <div class="checkbox-row">
+                <input type="checkbox" th:field="*{consent}"/>
+                <label>Jag godkänner <a href="/privacy-policy">integritetspolicyn</a></label>
+            </div>
+
+            <button type="submit">Registrera dig</button>
+        </form>
+
+        <p class="login-link">Har du redan ett konto? <a href="/login">Logga in</a></p>
+    </div>
+</div>
+
+</body>
+</html>
