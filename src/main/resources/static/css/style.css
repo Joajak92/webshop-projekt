@@ -1,0 +1,89 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #222;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-left: 20px;
+}
+
+header a:hover { opacity: 0.75; }
+
+header .logo {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 0;
+}
+
+header form button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-left: 20px;
+}
+
+header form button:hover { opacity: 0.75; }
+
+footer {
+    background-color: #222;
+    color: #aaa;
+    text-align: center;
+    padding: 16px;
+    font-size: 0.85rem;
+}
+
+footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+footer a:hover { color: white; }
+
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+}
+
+#cookie-banner p { color: white; margin: 0; }
+#cookie-banner a { color: #aaa; margin: 0; }
+#cookie-banner a:hover { color: white; }
+
+#cookie-banner button {
+    background-color: white;
+    color: #222;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#cookie-banner button:hover { opacity: 0.85; }

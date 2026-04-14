@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Integritetspolicy</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .content { max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); flex: 1; }
+        h1 { font-size: 1.8rem; margin-bottom: 24px; color: #222; }
+        h2 { font-size: 1.2rem; margin: 24px 0 8px; color: #222; }
+        p { color: #666; line-height: 1.7; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="content">
+    <h1>Integritetspolicy</h1>
+
+    <h2>Vilka uppgifter samlar vi in?</h2>
+    <p>Vi samlar in din e-postadress och ditt krypterade lösenord när du registrerar dig. Vi sparar även dina ordrar med produktinformation och totalpris.</p>
+
+    <h2>Varför samlar vi in uppgifterna?</h2>
+    <p>Vi samlar in uppgifterna för att kunna hantera ditt konto, skicka orderbekräftelser och ge dig tillgång till din orderhistorik.</p>
+
+    <h2>Hur länge sparas uppgifterna?</h2>
+    <p>Dina uppgifter sparas så länge ditt konto är aktivt. Du kan när som helst begära att ditt konto raderas.</p>
+
+    <h2>Dina rättigheter</h2>
+    <p>Du har rätt att få ut de uppgifter vi har om dig, rätt att få dem rättade och rätt att få dem raderade. Kontakta oss via email för att utöva dina rättigheter.</p>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

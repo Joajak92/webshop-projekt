@@ -10,4 +10,13 @@ public class HomeController {
     public String home() {
         return "index";
     }
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "privacy-policy";
+    }
+
+    @GetMapping("/cookie-policy")
+    public String cookiePolicy() {
+        return "cookie-policy";
+    }
 }
