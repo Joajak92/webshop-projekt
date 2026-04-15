@@ -9,18 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import se.iths.joakim.webshopprojekt.cart.Cart;
 import se.iths.joakim.webshopprojekt.cart.CartItem;
 import se.iths.joakim.webshopprojekt.model.Product;
-import se.iths.joakim.webshopprojekt.repository.ProductRepository;
+import se.iths.joakim.webshopprojekt.service.ProductService;
 
 import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    public CartController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public CartController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
@@ -36,8 +37,8 @@ public class CartController {
                             HttpSession session) {
         Cart cart = getOrCreateCart(session);
 
-        Product product = productRepository.findById(productId)
-                .orElseThrow();
+        Product product = productService.findById(productId);
+
 
         CartItem item = new CartItem();
         item.setProductId(product.getId());
