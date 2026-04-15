@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kundvagn</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 700px;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 24px; color: #222; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        th { text-align: left; padding: 10px; border-bottom: 2px solid #222; font-size: 0.9rem; }
+        td { padding: 10px; border-bottom: 1px solid #eee; color: #444; }
+        .total { text-align: right; font-size: 1.1rem; font-weight: bold; color: #222; margin-bottom: 24px; }
+        .actions { display: flex; gap: 12px; justify-content: space-between; }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary { background-color: #222; color: white; }
+        .btn-secondary { background-color: white; color: #222; border: 2px solid #222; }
+        .btn-danger { background-color: white; color: #c0392b; border: 2px solid #c0392b; }
+        .btn:hover { opacity: 0.85; }
+        .empty { color: #888; text-align: center; padding: 40px 0; }
+    </style>
+</head>
+<body>
+
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Kundvagn</h1>
+
+        <div th:if="${cart.items.empty}" class="empty">
+            <p>Din kundvagn är tom.</p>
+        </div>
+
+        <div th:if="${!cart.items.empty}">
+            <table>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Pris</th>
+                    <th>Antal</th>
+                    <th>Totalt</th>
+                </tr>
+                <tr th:each="item : ${cart.items}">
+                    <td th:text="${item.productName}"></td>
+                    <td th:text="${item.price} + ' kr'"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${item.price * item.quantity} + ' kr'"></td>
+                </tr>
+            </table>
+
+            <p class="total">Totalt: <span th:text="${cart.totalPrice} + ' kr'"></span></p>
+
+            <div class="actions">
+                <a href="/products" class="btn btn-secondary">Fortsätt handla</a>
+
+                <div style="display:flex; gap:12px;">
+                    <form th:action="@{/cart/clear}" method="post">
+                        <button class="btn btn-danger" type="submit">Töm kundvagn</button>
+                    </form>
+
+                    <form th:action="@{/checkout}" method="post">
+                        <button class="btn btn-primary" type="submit">Genomför köp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
