@@ -19,5 +19,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+
+      - name: Build and install spring-messenger
+        run: mvn -B -f spring-messenger/pom.xml clean install
+
+              
       - name: Build with Maven
         run: mvn -B package --file pom.xml
