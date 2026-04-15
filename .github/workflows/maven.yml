@@ -8,21 +8,27 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
+      - name: Checkout webshop
+        uses: actions/checkout@v4
+
+      - name: Checkout spring-messenger
+        uses: actions/checkout@v4
+        with:
+          repository: Joajak92/spring-messenger
+          path: spring-messenger
+
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: "17"
+          distribution: "temurin"
           cache: maven
 
       - name: Build and install spring-messenger
         run: mvn -B -f spring-messenger/pom.xml clean install
 
-              
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Build webshop
+        run: mvn -B -f pom.xml clean verify
