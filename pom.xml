@@ -20,7 +20,7 @@
     <repositories>
         <repository>
             <id>Joajak92</id>
-            <url>https://maven.pkg.github.com/Joajak92/spring-messenger</url>
+            <url>https://maven.pkg.github.com/joajak92/spring-messenger</url>
         </repository>
     </repositories>
 
