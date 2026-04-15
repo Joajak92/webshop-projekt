@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produkter</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .main-content {
+            flex: 1;
+            padding: 40px;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 32px; color: #222; }
+        h2 { font-size: 1.2rem; margin-bottom: 16px; color: #444; }
+        .category { margin-bottom: 40px; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 16px;
+        }
+        .product-name { font-size: 1rem; color: #222; margin-bottom: 4px; }
+        .product-price { color: #888; font-size: 0.9rem; margin-bottom: 12px; }
+        .btn-add {
+            width: 100%;
+            padding: 10px;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-add:hover { opacity: 0.85; }
+    </style>
+</head>
+<body>
+
+<header th:replace="~{fragments :: header}"></header>
+
+<div class="main-content">
+    <h1>Produkter</h1>
+
+    <div th:each="entry : ${products}">
+        <div class="category">
+            <h2 th:text="${entry.key}"></h2>
+            <div class="products-grid">
+                <div class="product-card" th:each="product : ${entry.value}">
+                    <img th:src="${product.imageUrl}" th:alt="${product.name}"/>
+                    <div class="product-info">
+                        <p class="product-name" th:text="${product.name}"></p>
+                        <p class="product-price" th:text="${product.price} + ' kr'"></p>
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="productId" th:value="${product.id}"/>
+                            <input type="hidden" name="quantity" value="1"/>
+                            <button class="btn-add" type="submit">Lägg i kundvagn</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
