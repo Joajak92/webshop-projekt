@@ -26,14 +26,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**").permitAll()
+                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**", "/ott/**", "/login/ott", "/ott/generate").permitAll()
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form ->
                         form.defaultSuccessUrl("/products", true)
+                )
+                .oneTimeTokenLogin(ott -> ott
+                        .tokenGenerationSuccessHandler(ottSuccessHandler)
                 );
-
         return http.build();
     }
 

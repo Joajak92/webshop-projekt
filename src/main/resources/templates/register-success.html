@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrering lyckades</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 60px 80px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 8px; color: #222; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Registrering lyckades!</h1>
+    <p>Du loggas in automatiskt via email...</p>
+
+    <form id="ottForm" th:action="@{/ott/generate}" method="post">
+        <input type="hidden" name="username" th:value="${username}"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</div>
+
+<script>
+    document.getElementById("ottForm").submit();
+</script>
+</body>
+</html>

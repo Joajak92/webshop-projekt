@@ -31,8 +31,11 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
                 .queryParam("token", oneTimeToken.getTokenValue())
                 .toUriString();
 
+        System.out.println("OTT till: " + oneTimeToken.getUsername());
+        System.out.println("Länk: " + link);
+
         Email email = new Email();
-        email.setRecipient(request.getParameter("username"));
+        email.setRecipient(oneTimeToken.getUsername());
         email.setMessage(link);
         email.setSubject("One time token link");
         messageService.send(email);
