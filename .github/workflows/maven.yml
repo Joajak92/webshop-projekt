@@ -1,23 +1,35 @@
-name: Java CI with Maven
+name: Maven Build
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 and Maven auth
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: "17"
           cache: maven
+          server-id: Joajak92
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B clean verify
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
