@@ -7,7 +7,9 @@ COPY src src
 RUN chmod +x mvnw
 
 
-RUN --mount=type=secret,id=maven_settings,target=/root/.m2/settings.xml \
+RUN --mount=type=secret,id=maven_settings,target=/etc/secrets/maven_settings \
+    mkdir -p /root/.m2 && \
+    cp /etc/secrets/maven_settings /root/.m2/settings.xml && \
     ./mvnw -B -DskipTests clean package
 
 FROM eclipse-temurin:17-jre-jammy
