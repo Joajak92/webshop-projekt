@@ -3,6 +3,7 @@ package se.iths.joakim.webshopprojekt.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_users")
@@ -11,15 +12,20 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z]{2,}$", message = "Username måste vara en emailadress")
     @Column(nullable = false, unique = true)
     private String username;
 
+
     @NotBlank
+    @Size(min = 8, message = "Lösenord ska vara minst 8 tecken!")
     @Column(nullable = false)
     private String password;
 
+
+    @Pattern(regexp = "USER|ADMIN", message = "Rollen måste vara USER eller ADMIN")
     private String role;
 
     private boolean consent;
