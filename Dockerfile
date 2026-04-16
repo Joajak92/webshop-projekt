@@ -4,7 +4,9 @@ COPY mvnw pom.xml ./
 COPY .mvn .mvn
 COPY src src
 COPY settings.xml /root/.m2/settings.xml
+
 RUN chmod +x mvnw
+
 RUN ./mvnw -B -DskipTests clean package
 
 FROM eclipse-temurin:17-jre-jammy
