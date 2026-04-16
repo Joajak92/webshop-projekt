@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.iths.joakim.webshopprojekt.model.AppUser;
 import se.iths.joakim.webshopprojekt.repository.AppUserRepository;
+import se.iths.joakim.webshopprojekt.validation.AppUserValidator;
 
 @Service
 public class AppUserService {
@@ -20,14 +21,12 @@ public class AppUserService {
         if (appUserRepository.findByUsername(appUser.getUsername()).isPresent()) {
             throw new IllegalArgumentException("E-postadressen används redan.");
         }
-        if (!appUser.isConsent()) {
-            throw new IllegalArgumentException("Du måste godkänna integritetspolicyn.");
-        }
+
+        AppUserValidator validator = new AppUserValidator();
+        validator.validate(appUser);
 
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-        if (appUser.getRole() == null || appUser.getRole().isBlank()) {
-            appUser.setRole("USER");
-        }
+
 
         return appUserRepository.save(appUser);
     }
