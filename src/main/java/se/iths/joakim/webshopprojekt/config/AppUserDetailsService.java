@@ -18,6 +18,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("=== LADDAR ANVÄNDARE: " + username);
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Kunde inte hitta användaren"));
         return User.builder()
