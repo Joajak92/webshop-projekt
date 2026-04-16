@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.ott.RedirectOneTimeTokenGenerationSuccessHandler;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.security.authentication.ott.JdbcOneTimeTokenService;
+import org.springframework.security.authentication.ott.OneTimeTokenService;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,10 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public org.springframework.security.authentication.ott.OneTimeTokenService jdbcOneTimeTokenService(JdbcOperations jdbcOperations) {
+        return new JdbcOneTimeTokenService(jdbcOperations);
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OttSuccessHandler ottSuccessHandler) throws Exception {
@@ -26,21 +32,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**", "/ott/**", "/login/ott", "/ott/generate").permitAll()
+                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**", "/ott/**", "/login/ott").permitAll()
                         .anyRequest().authenticated()
                 )
-
-                .formLogin(form ->
-                        form.defaultSuccessUrl("/products", true)
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/products", true)
+                        .permitAll()
                 )
-                .oneTimeTokenLogin(ott -> ott
-                        .tokenGenerationSuccessHandler(ottSuccessHandler)
-                );
+                .oneTimeTokenLogin(ott -> {
+                    ott.tokenGenerationSuccessHandler(ottSuccessHandler);
+                    ott.authenticationSuccessHandler(new org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler("/products"));
+                });
         return http.build();
-    }
-
-    @Bean
-    public RedirectOneTimeTokenGenerationSuccessHandler redirectOneTimeTokenGenerationSuccessHandler() {
-        return new RedirectOneTimeTokenGenerationSuccessHandler("/ott/sent");
     }
 }

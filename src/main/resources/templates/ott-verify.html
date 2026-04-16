@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Verifierar...</title></head>
+<body>
+<form id="verifyForm" th:action="@{/login/ott}" method="post">
+    <input type="hidden" name="token" th:value="${token}"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+</form>
+<script>
+    document.getElementById("verifyForm").submit();
+</script>
+</body>
+</html>

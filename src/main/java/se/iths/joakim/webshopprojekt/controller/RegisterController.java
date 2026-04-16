@@ -40,6 +40,6 @@ public class RegisterController {
         }
 
         model.addAttribute("username", appUser.getUsername());
-        return "email-sent";
+        return "register-success";
     }
 }
