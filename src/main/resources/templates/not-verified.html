@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registrering lyckades</title>
+    <title>Inte verifierad</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
         body {
@@ -18,22 +18,22 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
         }
         h1 { font-size: 1.8rem; margin-bottom: 8px; color: #222; }
-        p { color: #666; }
+        p { color: #666; margin-bottom: 24px; }
+        a {
+            padding: 12px 28px;
+            background-color: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        a:hover { opacity: 0.85; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Registrering lyckades!</h1>
-    <p>Vi skickar ett mail till dig strax...</p>
-
-    <form id="ottForm" th:action="@{/ott/generate}" method="post">
-        <input type="hidden" name="username" th:value="${username}"/>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    </form>
+    <h1>Kontot är inte verifierat</h1>
+    <p>Kolla din email och klicka på länken för att verifiera ditt konto.</p>
+    <a href="/login">Tillbaka till login</a>
 </div>
-
-<script>
-    document.getElementById("ottForm").submit();
-</script>
 </body>
 </html>
