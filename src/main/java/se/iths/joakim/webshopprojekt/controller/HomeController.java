@@ -33,4 +33,8 @@ public class HomeController {
         model.addAttribute("token", token);
         return "ott-verify";
     }
+    @GetMapping("/not-verified")
+    public String notVerified() {
+        return "not-verified";
+    }
 }

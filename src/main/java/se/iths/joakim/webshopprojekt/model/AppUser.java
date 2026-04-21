@@ -30,6 +30,16 @@ public class AppUser {
 
     private boolean consent;
 
+    private boolean verified = false;
+
+    public boolean isVerified() {
+        return verified;
+    }
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+
     public void setId(Long id) {
         this.id = id;
     }
