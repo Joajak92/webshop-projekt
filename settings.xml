@@ -2,8 +2,8 @@
     <servers>
         <server>
             <id>Joajak92</id>
-            <username>Joajak92</username>
-            <password>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</password>
+            <username>${env.MAVEN_USERNAME}</username>
+            <password>${env.MAVEN_PASSWORD}</password>
         </server>
     </servers>
 </settings>
