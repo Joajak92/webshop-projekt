@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**", "/ott/**", "/login/ott", "/not-verified").permitAll()
+                        .requestMatchers("/", "/register", "/privacy-policy", "/cookie-policy", "/public/**", "/ott/sent", "/actuator/**", "/css/**", "/ott/**", "/login/ott", "/not-verified", "/ott/generate-for").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
